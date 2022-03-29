@@ -7,7 +7,7 @@ const app = express();
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({
   extended: true,
-  limit: '50mb'
+  limit: "10mb"
 }));
 app.use(express.static("public"));
 
@@ -21,7 +21,7 @@ app.post("/", (req, res) => {
   var url = "http://localhost:5000";
   const options = {
     method: "POST",
-    maxHeaderSize: 500000
+    maxHeaderSize: 10000000 // 10mb
   };
 
   const request = http.request(url, options, (response) => {
