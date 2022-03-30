@@ -21,14 +21,13 @@ function toDataUrl(url, callback) {
     xhr.send();
 }
 
-function previewFile(event) {
-  const fileName = event.target.files[0].name;
-  const extension = fileName.split(".")[1];
+function previewFile() {
   const curFile = input.prop("files")[0];
+  const fileType = curFile.type.split("/")[0];
 
   preview.empty();
 
-  if (extension === "mp4" || extension === "mkv") {
+  if (fileType === "video") {
     video.attr("src", URL.createObjectURL(curFile));
     video.append("<p>Your browser doesn't support HTML5 video.</p>");
     preview.append(video);
@@ -41,11 +40,30 @@ function previewFile(event) {
 }
 
 function submitFile() {
-  toDataUrl(image.attr("src"), (dataUrl) => {
+  const curFile = input.prop("files")[0];
+  const fileType = curFile.type.split("/")[0];
+
+  $(".container").empty();
+  const loading = $("<div class='loading'></div>");
+  const loading_spin = $("<div class='loading-spin'></div>");
+
+  loading.append(loading_spin);
+  loading.append("<p>We're processing your request. Please wait...</p>");
+  $(".container").append(loading);
+
+  let source = "";
+  if (fileType === "video") {
+    source = video.attr("src");
+  } else {
+    source = image.attr("src");
+  }
+
+  toDataUrl(source, (dataUrl) => {
     $.ajax({
       type: "POST",
       url: "/",
       data: {
+        type: fileType,
         base64: dataUrl
       },
       success: (response) => {
