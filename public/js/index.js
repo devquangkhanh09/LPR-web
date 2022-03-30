@@ -1,11 +1,8 @@
-const input = $("input");
 const preview = $(".preview");
 const image = $("<img/>");
 const video = $("<video controls></video>");
-const button = $("button");
+let file = new File([], "");
 
-input.on("change", previewFile);
-button.on("click", submitFile);
 
 function toDataUrl(url, callback) {
     var xhr = new XMLHttpRequest();
@@ -21,27 +18,27 @@ function toDataUrl(url, callback) {
     xhr.send();
 }
 
+
 function previewFile() {
-  const curFile = input.prop("files")[0];
-  const fileType = curFile.type.split("/")[0];
+  const fileType = file.type.split("/")[0];
 
   preview.empty();
 
   if (fileType === "video") {
-    video.attr("src", URL.createObjectURL(curFile));
+    video.attr("src", URL.createObjectURL(file));
     video.append("<p>Your browser doesn't support HTML5 video.</p>");
     preview.append(video);
   } else {
-    image.attr("src", URL.createObjectURL(curFile));
+    image.attr("src", URL.createObjectURL(file));
     preview.append(image);
   }
 
-  URL.revokeObjectURL(curFile);
+  URL.revokeObjectURL(file);
 }
 
+
 function submitFile() {
-  const curFile = input.prop("files")[0];
-  const fileType = curFile.type.split("/")[0];
+  const fileType = file.type.split("/")[0];
 
   $(".container").empty();
   const loading = $("<div class='loading'></div>");
@@ -71,4 +68,35 @@ function submitFile() {
       }
     });
   });
+}
+
+
+function changeHandler(ev) {
+  file = ev.target.files[0];
+  previewFile();
+}
+
+
+function dropHandler(ev) {
+  ev.preventDefault();
+
+  if (ev.dataTransfer.items) {
+    const item = ev.dataTransfer.items[0];
+    const itemType = item.type.split("/")[0];
+    if (itemType === "image" || itemType === "video") {
+      file = item.getAsFile();
+      previewFile();
+    }
+  } else {
+    file = ev.dataTransfer.files[0];
+    const fileType = file.type.split("/")[0];
+    if (fileType === "image" || fileType === "video") {
+      previewFile();
+    }
+  }
+}
+
+
+function dragOverHandler(ev) {
+  event.preventDefault();
 }

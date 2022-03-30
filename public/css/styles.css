@@ -47,3 +47,14 @@ footer {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+#drop_zone {
+  margin: auto;
+  border: 5px dashed #000;
+  width: 60%;
+  height: 100px;
+}
+
+#drop_zone:hover {
+  border: 5px dashed #DFDFDE;
+}

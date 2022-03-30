@@ -5,13 +5,18 @@
 
     <form enctype="multipart/form-data">
       <label for="test">Choose an image / video: </label>
-      <input type="file" id="test" name="test" accept=".jpg, .jpeg, .png, .mp4, .mkv">
-      <button type="button" name="button">Submit</button>
+      <input type="file" id="test" name="test" accept=".jpg, .jpeg, .png, .mp4, .mkv" onchange="changeHandler(event);">
+      <button type="button" name="button" onclick="submitFile();">Submit</button>
     </form>
 
     <div class="preview padding-3">
       <p>No file currently selected for preview</p>
     </div>
+
+    <div id="drop_zone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
+      <p>Drag one file to this Drop Zone ...</p>
+    </div>
+
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
