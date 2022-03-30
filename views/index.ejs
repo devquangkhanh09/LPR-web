@@ -3,19 +3,21 @@
   <div class="container">
     <h1 class="title padding-3">Welcome to GDSC license plate recognition</h1>
 
-    <form enctype="multipart/form-data">
-      <label for="test">Choose an image / video: </label>
-      <input type="file" id="test" name="test" accept=".jpg, .jpeg, .png, .mp4, .mkv" onchange="changeHandler(event);">
-      <button type="button" name="button" onclick="submitFile();">Submit</button>
-    </form>
+    <div id="drop_zone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
+      <p>Drag one file to this Drop Zone ...</p>
+      <p>Or</p>
+      <form enctype="multipart/form-data">
+        <label for="upload-file">Choose an image / video: </label>
+        <input type="file" id="upload-file" accept=".jpg, .jpeg, .png, .mp4, .mkv" onchange="changeHandler(event);">
+        <button type="button" class="btn btn-outline-primary" onclick="$('#upload-file').click();">Browse</button>
+      </form>
+    </div>
 
     <div class="preview padding-3">
       <p>No file currently selected for preview</p>
     </div>
 
-    <div id="drop_zone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
-      <p>Drag one file to this Drop Zone ...</p>
-    </div>
+    <button type="button" class="btn btn-primary btn-lg" onclick="submitFile();">Submit</button>
 
   </div>
 

@@ -47,6 +47,8 @@ function submitFile() {
   loading.append(loading_spin);
   loading.append("<p>We're processing your request. Please wait...</p>");
   $(".container").append(loading);
+  $("footer").hide()
+  $("html").css("height", "auto");
 
   let source = "";
   if (fileType === "video") {

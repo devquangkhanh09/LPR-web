@@ -36,7 +36,8 @@ app.post("/", (req, res) => {
       res.render("result", {
         title: "Result",
         source: response.headers.result,
-        plates: response.headers.plates
+        plate: response.headers.plates.slice(2, -2),
+        confidence: response.headers.confidence.slice(1, -1)
       });
     }
   });
