@@ -29,8 +29,7 @@ app.post("/", (req, res) => {
     if (type === "video") {
       res.render("result_video", {
         title: "Result",
-        source_webm: response.headers.webm,
-        source_mp4: response.headers.mp4
+        source: response.headers.webm
       });
     } else {
       res.render("result", {

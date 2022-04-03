@@ -49,6 +49,7 @@ function submitFile() {
   $(".container").append(loading);
   $("footer").hide()
   $("html").css("height", "auto");
+  $("body").removeClass("background");
 
   let source = "";
   if (fileType === "video") {
